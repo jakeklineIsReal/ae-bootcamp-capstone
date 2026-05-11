@@ -1,0 +1,193 @@
+WEBVTT
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/4-0
+00:00:05.351 --> 00:00:05.511
+<v Jake Kline>Okay.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/5-0
+00:00:06.871 --> 00:00:07.831
+<v Jake Kline>Check, check.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/7-0
+00:00:10.151 --> 00:00:12.631
+<v Jake Kline>Are we running? Are we hot? Okay.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/8-0
+00:00:16.631 --> 00:00:21.831
+<v Jake Kline>This is a meeting to suss out the
+requirements.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/9-0
+00:00:27.111 --> 00:00:33.971
+<v Jake Kline>For my capstone project for accelerated
+engineering with GitHub Copilot,</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/9-1
+00:00:33.971 --> 00:00:36.791
+<v Jake Kline>I am looking to design a game.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/10-0
+00:00:38.031 --> 00:00:44.967
+<v Jake Kline>For my four-year-old son,
+he is turning 4 next Monday.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/10-1
+00:00:44.967 --> 00:00:47.111
+<v Jake Kline>I want something.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/11-0
+00:00:48.391 --> 00:00:49.191
+<v Jake Kline>That.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/12-0
+00:00:51.911 --> 00:00:53.511
+<v Jake Kline>He would enjoy to play.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/13-0
+00:00:55.711 --> 00:01:01.188
+<v Jake Kline>where he can grasp the controls quickly
+and that has good replay value.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/13-1
+00:01:01.188 --> 00:01:04.231
+<v Jake Kline>So I think it should be somewhat simple.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/14-0
+00:01:07.271 --> 00:01:11.296
+<v Jake Kline>challenging enough for him because he is
+smart and he loves video games.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/14-1
+00:01:11.296 --> 00:01:12.951
+<v Jake Kline>He plays a lot of video games.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/15-0
+00:01:14.911 --> 00:01:19.680
+<v Jake Kline>And obviously,
+it must be doable within the time frame</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/15-1
+00:01:19.680 --> 00:01:26.791
+<v Jake Kline>that we're using this agentic workflow.
+So the first thing I thought about was...</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/16-0
+00:01:27.911 --> 00:01:33.909
+<v Jake Kline>doing a little game around a scooter.
+So he wants a little like razor scooter.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/16-1
+00:01:33.909 --> 00:01:39.452
+<v Jake Kline>And he wants to be able to ride his
+scooter to the Wallingford playfield</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/16-2
+00:01:39.452 --> 00:01:44.690
+<v Jake Kline>where he plays at the park.
+He meets his friends there. Him being 4,</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/16-3
+00:01:44.690 --> 00:01:48.791
+<v Jake Kline>he obviously can't do this on his own.
+His mom and I.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/17-0
+00:01:48.951 --> 00:01:49.271
+<v Jake Kline>Um...</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/18-0
+00:01:51.431 --> 00:01:55.517
+<v Jake Kline>take him to the park and even with his
+scooter,</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/18-1
+00:01:55.517 --> 00:02:02.497
+<v Jake Kline>he would be riding to the park with us.
+But I thought there could be a game where</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/18-2
+00:02:02.497 --> 00:02:04.711
+<v Jake Kline>he could ride to the park.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/19-0
+00:02:08.311 --> 00:02:12.654
+<v Jake Kline>in the game by himself.
+Maybe he has to collect an item like a</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/19-1
+00:02:12.654 --> 00:02:15.756
+<v Jake Kline>helmet,
+or maybe he has a helmet in the game</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/19-2
+00:02:15.756 --> 00:02:19.273
+<v Jake Kline>already.
+I should emphasize that my son is wearing</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/19-3
+00:02:19.273 --> 00:02:24.030
+<v Jake Kline>a helmet while he's riding a scooter.
+So when he's playing the game,</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/19-4
+00:02:24.030 --> 00:02:25.271
+<v Jake Kline>he gets that idea.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/20-0
+00:02:29.271 --> 00:02:34.471
+<v Jake Kline>So we need to decide the technology,
+the platform.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/21-0
+00:02:36.951 --> 00:02:41.104
+<v Jake Kline>Is it going to be what tech stacks we're
+going to use?</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/21-1
+00:02:41.104 --> 00:02:46.993
+<v Jake Kline>How we're going to go about creating some
+simple goals for him and how he can</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/21-2
+00:02:46.993 --> 00:02:51.751
+<v Jake Kline>replay it once he meets some challenges.
+So there should be...</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/22-0
+00:02:56.231 --> 00:03:00.770
+<v Jake Kline>There should be a goal.
+It should involve his scooter and he</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/22-1
+00:03:00.770 --> 00:03:05.831
+<v Jake Kline>should win the game by getting to the
+park and meeting his friends.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/23-0
+00:03:08.871 --> 00:03:10.471
+<v Jake Kline>There can be other.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/24-0
+00:03:12.151 --> 00:03:15.627
+<v Jake Kline>ways to do this,
+as long as it's scooter themed,</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/24-1
+00:03:15.627 --> 00:03:19.601
+<v Jake Kline>like if he races his friends on a scooter
+or something,</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/24-2
+00:03:19.601 --> 00:03:25.064
+<v Jake Kline>something simple like that as well.
+So that's where we're going to end this.</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/24-3
+00:03:25.064 --> 00:03:29.038
+<v Jake Kline>We need to come up with a good scooter
+game for my son,</v>
+
+c833ddd9-0a97-4f1b-8d50-97cd9567e6cb/24-4
+00:03:29.038 --> 00:03:32.231
+<v Jake Kline>and then we will start picking
+technologies.</v>
