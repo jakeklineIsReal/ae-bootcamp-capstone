@@ -1,0 +1,37 @@
+{
+  "name": "wyatts-scooter-adventure",
+  "version": "1.0.0",
+  "description": "A web-based 2D scooter game for kids featuring Wyatt's journey to the park",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakeklineIsReal/ae-bootcamp-capstone.git"
+  },
+  "keywords": [
+    "phaser",
+    "game",
+    "kids",
+    "scooter",
+    "educational"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakeklineIsReal/ae-bootcamp-capstone/issues"
+  },
+  "homepage": "https://github.com/jakeklineIsReal/ae-bootcamp-capstone#readme",
+  "dependencies": {
+    "phaser": "^3.70.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21"
+  }
+}

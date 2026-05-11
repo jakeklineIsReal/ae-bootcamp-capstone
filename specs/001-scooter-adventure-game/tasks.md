@@ -27,12 +27,12 @@ Single web project structure:
 
 **Purpose**: Project initialization and tooling configuration
 
-- [ ] T001 Create project directory structure per plan.md (src/, public/assets/, tests/)
-- [ ] T002 Initialize Node.js project with package.json and install core dependencies (phaser, typescript, vite)
-- [ ] T003 [P] Configure TypeScript with tsconfig.json (target ES2020, strict mode, Phaser types)
-- [ ] T004 [P] Configure Vite build tool in vite.config.ts (GitHub Pages base path, Phaser chunking)
-- [ ] T005 [P] Create public/index.html entry point with game container and basic styling
-- [ ] T006 [P] Setup .gitignore for node_modules, dist, and IDE files
+- [X] T001 Create project directory structure per plan.md (src/, public/assets/, tests/)
+- [X] T002 Initialize Node.js project with package.json and install core dependencies (phaser, typescript, vite)
+- [X] T003 [P] Configure TypeScript with tsconfig.json (target ES2020, strict mode, Phaser types)
+- [X] T004 [P] Configure Vite build tool in vite.config.ts (GitHub Pages base path, Phaser chunking)
+- [X] T005 [P] Create public/index.html entry point with game container and basic styling
+- [X] T006 [P] Setup .gitignore for node_modules, dist, and IDE files
 
 **Checkpoint**: Project structure ready, dependencies installed, builds successfully
 
@@ -46,27 +46,27 @@ Single web project structure:
 
 ### Game Configuration & Constants
 
-- [ ] T007 [P] Create src/config/gameConfig.ts with Phaser game configuration (canvas size, physics, scenes)
-- [ ] T008 [P] Create src/config/constants.ts with game constants (speeds, gravity, world bounds, colors)
-- [ ] T009 [P] Create src/config/assetPaths.ts with asset loading path definitions
+- [X] T007 [P] Create src/config/gameConfig.ts with Phaser game configuration (canvas size, physics, scenes)
+- [X] T008 [P] Create src/config/constants.ts with game constants (speeds, gravity, world bounds, colors)
+- [X] T009 [P] Create src/config/assetPaths.ts with asset loading path definitions
 
 ### Core Systems (Managers)
 
-- [ ] T010 [P] Implement AudioManager class in src/systems/AudioManager.ts (volume control, play SFX, play music, mute)
-- [ ] T011 [P] Implement ScoreManager class in src/systems/ScoreManager.ts (track collectibles by type, get totals)
-- [ ] T012 [P] Implement CollisionManager class in src/systems/CollisionManager.ts (handle player-obstacle, player-collectible)
-- [ ] T013 [P] Create LocalStorage utility in src/utils/localStorage.ts (save/load preferences with error handling)
+- [X] T010 [P] Implement AudioManager class in src/systems/AudioManager.ts (volume control, play SFX, play music, mute)
+- [X] T011 [P] Implement ScoreManager class in src/systems/ScoreManager.ts (track collectibles by type, get totals)
+- [X] T012 [P] Implement CollisionManager class in src/systems/CollisionManager.ts (handle player-obstacle, player-collectible)
+- [X] T013 [P] Create LocalStorage utility in src/utils/localStorage.ts (save/load preferences with error handling)
 
 ### Scene Structure (Empty Templates)
 
-- [ ] T014 [P] Create BootScene class in src/scenes/BootScene.ts with asset loading structure
-- [ ] T015 [P] Create StartScene class in src/scenes/StartScene.ts with basic scene setup
-- [ ] T016 [P] Create GameScene class in src/scenes/GameScene.ts with basic scene setup
-- [ ] T017 [P] Create CelebrationScene class in src/scenes/CelebrationScene.ts with basic scene setup
+- [X] T014 [P] Create BootScene class in src/scenes/BootScene.ts with asset loading structure
+- [X] T015 [P] Create StartScene class in src/scenes/StartScene.ts with basic scene setup
+- [X] T016 [P] Create GameScene class in src/scenes/GameScene.ts with basic scene setup
+- [X] T017 [P] Create CelebrationScene class in src/scenes/CelebrationScene.ts with basic scene setup
 
 ### Main Entry Point
 
-- [ ] T018 Create src/main.ts entry point that initializes Phaser game with all scenes
+- [X] T018 Create src/main.ts entry point that initializes Phaser game with all scenes
 
 **Checkpoint**: Foundation ready - all scenes exist, systems available, game launches (empty black screen is OK)
 
@@ -93,44 +93,44 @@ Single web project structure:
 
 ### Player Entity
 
-- [ ] T022 [P] [US1] Create Player class in src/entities/Player.ts with position, velocity, and state properties
-- [ ] T023 [US1] Implement player movement methods in src/entities/Player.ts (moveRight, jump, applyGravity)
-- [ ] T024 [US1] Add player sprite animations in src/entities/Player.ts (idle, walking, jumping)
-- [ ] T025 [US1] Implement player collision hitbox configuration in src/entities/Player.ts
-- [ ] T026 [US1] Add helmet visibility enforcement in src/entities/Player.ts sprite rendering
+- [X] T022 [P] [US1] Create Player class in src/entities/Player.ts with position, velocity, and state properties
+- [X] T023 [US1] Implement player movement methods in src/entities/Player.ts (moveRight, jump, applyGravity)
+- [X] T024 [US1] Add player sprite animations in src/entities/Player.ts (idle, walking, jumping)
+- [X] T025 [US1] Implement player collision hitbox configuration in src/entities/Player.ts
+- [X] T026 [US1] Add helmet visibility enforcement in src/entities/Player.ts sprite rendering
 
 ### Obstacle Entity
 
-- [ ] T027 [P] [US1] Create Obstacle class in src/entities/Obstacle.ts with type, effect, and hitbox properties
-- [ ] T028 [US1] Implement obstacle effect application in src/entities/Obstacle.ts (slow, bump, speed-change)
-- [ ] T029 [US1] Add obstacle sprites and animations in src/entities/Obstacle.ts (puddle splash, rock bump, hill)
+- [X] T027 [P] [US1] Create Obstacle class in src/entities/Obstacle.ts with type, effect, and hitbox properties
+- [X] T028 [US1] Implement obstacle effect application in src/entities/Obstacle.ts (slow, bump, speed-change)
+- [X] T029 [US1] Add obstacle sprites and animations in src/entities/Obstacle.ts (puddle splash, rock bump, hill)
 
 ### Friend Characters
 
-- [ ] T030 [P] [US1] Create Friend class in src/entities/Friend.ts with name, appearance, and state properties
-- [ ] T031 [US1] Implement friend celebration animations in src/entities/Friend.ts (waving, celebrating)
-- [ ] T032 [US1] Add distinct visual attributes for Nico, Marcus, Otto in src/entities/Friend.ts (height, appearance, helmet colors)
+- [X] T030 [P] [US1] Create Friend class in src/entities/Friend.ts with name, appearance, and state properties
+- [X] T031 [US1] Implement friend celebration animations in src/entities/Friend.ts (waving, celebrating)
+- [X] T032 [US1] Add distinct visual attributes for Nico, Marcus, Otto in src/entities/Friend.ts (height, appearance, helmet colors)
 
 ### StartScene Implementation
 
-- [ ] T033 [US1] Implement title display and character preview in src/scenes/StartScene.ts
-- [ ] T034 [US1] Add "Press Any Key to Start" visual instruction in src/scenes/StartScene.ts
-- [ ] T035 [US1] Implement start trigger (keyboard/touch input) in src/scenes/StartScene.ts
-- [ ] T036 [US1] Add transition to GameScene with basic preferences in src/scenes/StartScene.ts
+- [X] T033 [US1] Implement title display and character preview in src/scenes/StartScene.ts
+- [X] T034 [US1] Add "Press Any Key to Start" visual instruction in src/scenes/StartScene.ts
+- [X] T035 [US1] Implement start trigger (keyboard/touch input) in src/scenes/StartScene.ts
+- [X] T036 [US1] Add transition to GameScene with basic preferences in src/scenes/StartScene.ts
 
 ### GameScene Implementation - World Setup
 
-- [ ] T037 [US1] Create parallax scrolling background system in src/scenes/GameScene.ts (3 layers: background, midground, foreground)
-- [ ] T038 [US1] Implement world bounds and camera follow in src/scenes/GameScene.ts (camera follows player with lerp)
-- [ ] T039 [US1] Spawn player at start position in src/scenes/GameScene.ts
-- [ ] T040 [US1] Setup obstacle spawning along journey path in src/scenes/GameScene.ts (puddles, rocks, hills at set positions)
+- [X] T037 [US1] Create parallax scrolling background system in src/scenes/GameScene.ts (3 layers: background, midground, foreground)
+- [X] T038 [US1] Implement world bounds and camera follow in src/scenes/GameScene.ts (camera follows player with lerp)
+- [X] T039 [US1] Spawn player at start position in src/scenes/GameScene.ts
+- [X] T040 [US1] Setup obstacle spawning along journey path in src/scenes/GameScene.ts (puddles, rocks, hills at set positions)
 
 ### GameScene Implementation - Input & Physics
 
-- [ ] T041 [US1] Implement keyboard input handling in src/scenes/GameScene.ts (arrow keys, WASD, Space for jump)
-- [ ] T042 [US1] Implement touch input zones in src/scenes/GameScene.ts (left/right/center screen regions)
-- [ ] T043 [US1] Add physics update loop in src/scenes/GameScene.ts (player movement, gravity, velocity)
-- [ ] T044 [US1] Integrate CollisionManager for player-obstacle detection in src/scenes/GameScene.ts
+- [X] T041 [US1] Implement keyboard input handling in src/scenes/GameScene.ts (arrow keys, WASD, Space for jump)
+- [X] T042 [US1] Implement touch input zones in src/scenes/GameScene.ts (left/right/center screen regions)
+- [X] T043 [US1] Add physics update loop in src/scenes/GameScene.ts (player movement, gravity, velocity)
+- [X] T044 [US1] Integrate CollisionManager for player-obstacle detection in src/scenes/GameScene.ts
 
 ### GameScene Implementation - Audio Feedback
 
@@ -141,18 +141,18 @@ Single web project structure:
 
 ### GameScene Implementation - Journey Completion
 
-- [ ] T049 [US1] Implement distance tracking and progress calculation in src/scenes/GameScene.ts (percentage to park)
-- [ ] T050 [US1] Add progress bar UI element in src/scenes/GameScene.ts (top-center display)
-- [ ] T051 [US1] Detect park arrival condition in src/scenes/GameScene.ts (player.x >= PARK_X)
-- [ ] T052 [US1] Transition to CelebrationScene on journey completion in src/scenes/GameScene.ts
+- [X] T049 [US1] Implement distance tracking and progress calculation in src/scenes/GameScene.ts (percentage to park)
+- [X] T050 [US1] Add progress bar UI element in src/scenes/GameScene.ts (top-center display)
+- [X] T051 [US1] Detect park arrival condition in src/scenes/GameScene.ts (player.x >= PARK_X)
+- [X] T052 [US1] Transition to CelebrationScene on journey completion in src/scenes/GameScene.ts
 
 ### CelebrationScene Implementation
 
-- [ ] T053 [US1] Display friends (Nico, Marcus, Otto) at park in src/scenes/CelebrationScene.ts
-- [ ] T054 [US1] Implement friend celebration animations in src/scenes/CelebrationScene.ts (waving, jumping)
-- [ ] T055 [US1] Add celebration audio (victory music, congratulatory voice cue) in src/scenes/CelebrationScene.ts
-- [ ] T056 [US1] Display "Great job! You made it!" message in src/scenes/CelebrationScene.ts
-- [ ] T057 [US1] Implement replay button that returns to StartScene in src/scenes/CelebrationScene.ts
+- [X] T053 [US1] Display friends (Nico, Marcus, Otto) at park in src/scenes/CelebrationScene.ts
+- [X] T054 [US1] Implement friend celebration animations in src/scenes/CelebrationScene.ts (waving, jumping)
+- [X] T055 [US1] Add celebration audio (victory music, congratulatory voice cue) in src/scenes/CelebrationScene.ts
+- [X] T056 [US1] Display "Great job! You made it!" message in src/scenes/CelebrationScene.ts
+- [X] T057 [US1] Implement replay button that returns to StartScene in src/scenes/CelebrationScene.ts
 
 ### Asset Preparation for US1
 
