@@ -1,10 +1,12 @@
 import Phaser from 'phaser';
 import { SCENES, WORLD, CAMERA } from '../config/constants';
 import { AudioManager } from '../systems/AudioManager';
+import { SynthAudioManager } from '../systems/SynthAudioManager';
 import { ScoreManager } from '../systems/ScoreManager';
 import { CollisionManager } from '../systems/CollisionManager';
 import { Player } from '../entities/Player';
 import { Obstacle } from '../entities/Obstacle';
+import { Collectible } from '../entities/Collectible';
 
 /**
  * GameScene
@@ -14,12 +16,14 @@ import { Obstacle } from '../entities/Obstacle';
 export class GameScene extends Phaser.Scene {
   // Managers
   private audioManager!: AudioManager;
+  private synthAudio!: SynthAudioManager;
   private scoreManager!: ScoreManager;
   private collisionManager!: CollisionManager;
   
   // Game objects
   private player!: Player;
   private obstacles!: Phaser.Physics.Arcade.Group;
+  private collectibles!: Phaser.Physics.Arcade.Group;
   
   // Input
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -30,6 +34,7 @@ export class GameScene extends Phaser.Scene {
   // UI
   private progressBar!: Phaser.GameObjects.Graphics;
   private progressText!: Phaser.GameObjects.Text;
+  private scoreText!: Phaser.GameObjects.Text;
   
   // State
   private journeyDistance: number = 0;
@@ -45,11 +50,18 @@ export class GameScene extends Phaser.Scene {
     
     // Initialize managers
     this.audioManager = new AudioManager(this);
+    this.synthAudio = new SynthAudioManager();
     this.scoreManager = new ScoreManager();
     this.collisionManager = new CollisionManager(this);
     
-    // Suppress audioManager unused warning - will be used for audio tasks
+    // Suppress audioManager unused warning - will be used for asset-based audio later
     void this.audioManager;
+    
+    // Resume audio context after user interaction
+    this.synthAudio.resume();
+    
+    // Fade in transition (T116)
+    this.cameras.main.fadeIn(500, 0, 0, 0);
     
     // Setup world
     this.setupWorld();
@@ -58,6 +70,9 @@ export class GameScene extends Phaser.Scene {
     this.spawnPlayer();
     
     // Setup obstacles
+    
+    // Setup collectibles (T068)
+    this.setupCollectibles();
     this.setupObstacles();
     
     // Setup input
@@ -71,6 +86,12 @@ export class GameScene extends Phaser.Scene {
     
     // Setup collision detection
     this.setupCollisions();
+    
+    // Start background music (T045)
+    this.synthAudio.playBackgroundMusic();
+    
+    // Add volume control UI (T048)
+    this.setupVolumeControls();
   }
 
   private setupWorld(): void {
@@ -112,6 +133,34 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
+  private setupCollectibles(): void {
+    this.collectibles = this.physics.add.group();
+    
+    // Place collectibles along the journey (T068)
+    // Mix of stars, hearts, and circles
+    const collectiblePositions = [
+      { x: 400, y: WORLD.GROUND_Y - 150, type: 'star' as const },
+      { x: 650, y: WORLD.GROUND_Y - 120, type: 'heart' as const },
+      { x: 900, y: WORLD.GROUND_Y - 180, type: 'circle' as const },
+      { x: 1100, y: WORLD.GROUND_Y - 100, type: 'star' as const },
+      { x: 1400, y: WORLD.GROUND_Y - 160, type: 'heart' as const },
+      { x: 1700, y: WORLD.GROUND_Y - 140, type: 'circle' as const },
+      { x: 1900, y: WORLD.GROUND_Y - 190, type: 'star' as const },
+      { x: 2200, y: WORLD.GROUND_Y - 110, type: 'heart' as const },
+      { x: 2500, y: WORLD.GROUND_Y - 170, type: 'circle' as const },
+      { x: 2700, y: WORLD.GROUND_Y - 130, type: 'star' as const },
+      { x: 3000, y: WORLD.GROUND_Y - 150, type: 'heart' as const },
+      { x: 3300, y: WORLD.GROUND_Y - 180, type: 'circle' as const },
+      { x: 3500, y: WORLD.GROUND_Y - 120, type: 'star' as const },
+      { x: 3700, y: WORLD.GROUND_Y - 160, type: 'heart' as const },
+    ];
+    
+    collectiblePositions.forEach(pos => {
+      const collectible = new Collectible(this, pos.x, pos.y, pos.type);
+      this.collectibles.add(collectible);
+    });
+  }
+
   private setupInput(): void {
     // Keyboard input
     if (this.input.keyboard) {
@@ -141,6 +190,20 @@ export class GameScene extends Phaser.Scene {
     });
     this.progressText.setOrigin(0.5);
     this.progressText.setScrollFactor(0); // Fixed to camera
+    
+    // Score text (T072 - top-left corner)
+    this.scoreText = this.add.text(20, 70, this.getScoreText(), {
+      fontSize: '20px',
+      color: '#ffffff',
+      backgroundColor: '#00000080',
+      padding: { x: 10, y: 5 },
+    });
+    this.scoreText.setScrollFactor(0);
+  }
+
+  private getScoreText(): string {
+    const counts = this.scoreManager.getAllCounts();
+    return `⭐ ${counts.stars}  ❤️ ${counts.hearts}  ⚪ ${counts.circles}  Total: ${this.scoreManager.getTotal()}`;
   }
 
   private setupCamera(): void {
@@ -156,12 +219,20 @@ export class GameScene extends Phaser.Scene {
       this.obstacles,
       this.handleObstacleHit.bind(this)
     );
+    
+    // Player-collectible overlap (T069)
+    this.collisionManager.setupOverlap(
+      this.player,
+      this.collectibles,
+      this.handleCollectiblePickup.bind(this)
+    );
   }
 
   private handleJump(): void {
     if (this.player.isOnGround()) {
       this.player.jump();
-      // TODO: Play jump sound in audio implementation task
+      // T046: Play jump sound effect
+      this.synthAudio.playJumpSound();
       console.log('Jump!');
     }
   }
@@ -180,8 +251,36 @@ export class GameScene extends Phaser.Scene {
     const slowFactor = obstacle.getSlowFactor();
     this.player.slow(slowFactor);
     
-    // TODO: Play obstacle sound based on type
+    // T047: Play obstacle interaction sounds based on type
+    if (obstacle.type === 'puddle') {
+      this.synthAudio.playSplashSound();
+    } else {
+      this.synthAudio.playBumpSound();
+    }
+    
     console.log(`Hit ${obstacle.type}! Slowed to ${slowFactor * 100}%`);
+  }
+
+  private handleCollectiblePickup(
+    _playerObj: any,
+    _collectibleObj: any
+  ): void {
+    const collectible = _collectibleObj as Collectible;
+    
+    // Skip if already collected
+    if (collectible.collected) return;
+    
+    // Collect the item (T070)
+    collectible.collect();
+    
+    // Update score (T073)
+    this.scoreManager.addCollectible(collectible.type);
+    this.scoreText.setText(this.getScoreText());
+    
+    // T071: Play unique audio for each collectible type
+    this.synthAudio.playCollectSound(collectible.type);
+    
+    console.log(`Collected ${collectible.type}! Total: ${this.scoreManager.getTotal()}`);
   }
 
   private updateMovement(): void {
@@ -216,10 +315,45 @@ export class GameScene extends Phaser.Scene {
 
   private reachPark(): void {
     console.log('Reached the park!');
-    // Transition to celebration scene
-    this.scene.start(SCENES.CELEBRATION, {
-      score: this.scoreManager.getTotal(),
+    
+    // Fade out transition (T116)
+    this.cameras.main.fadeOut(500, 0, 0, 0);
+    this.cameras.main.once('camerafadeoutcomplete', () => {
+      // Transition to celebration scene with collectible counts
+      const counts = this.scoreManager.getAllCounts();
+      this.scene.start(SCENES.CELEBRATION, {
+        score: this.scoreManager.getTotal(),
+        stars: counts.stars,
+        hearts: counts.hearts,
+        circles: counts.circles,
+      });
     });
+  }
+
+  private setupVolumeControls(): void {
+    const { width } = this.scale;
+    
+    // Mute/Unmute button (T048: Parent volume control)
+    const muteButton = this.add.text(width - 100, 20, '🔊 Mute', {
+      fontSize: '18px',
+      color: '#ffffff',
+      backgroundColor: '#00000080',
+      padding: { x: 10, y: 5 },
+    });
+    muteButton.setScrollFactor(0);
+    muteButton.setInteractive({ useHandCursor: true });
+    
+    muteButton.on('pointerdown', () => {
+      this.synthAudio.toggleMute();
+      muteButton.setText(this.synthAudio.isMuted() ? '🔇 Unmute' : '🔊 Mute');
+    });
+    
+    // Volume slider indicators (visual feedback)
+    const volumeText = this.add.text(width - 230, 20, 'Volume', {
+      fontSize: '16px',
+      color: '#ffffff',
+    });
+    volumeText.setScrollFactor(0);
   }
 
   update(_time: number, delta: number): void {
@@ -239,5 +373,10 @@ export class GameScene extends Phaser.Scene {
         this.isSlowed = false;
       }
     }
+  }
+  
+  shutdown(): void {
+    // Stop music when leaving scene
+    this.synthAudio.stopBackgroundMusic();
   }
 }

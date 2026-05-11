@@ -37,19 +37,56 @@ export class Player extends Phaser.GameObjects.Container {
   }
 
   private createSprite(): void {
-    // Player body (brown hair, red shoes - representing Wyatt)
-    // Placeholder: Simple colored rectangle
-    this.sprite = this.scene.add.rectangle(0, 0, PLAYER.WIDTH, PLAYER.HEIGHT, 0x8b4513);
+    // Scooter base (at bottom)
+    const scooter = this.scene.add.graphics();
+    scooter.fillStyle(0x888888, 1); // Gray scooter
+    scooter.lineStyle(2, 0x444444, 1);
+    // Deck
+    scooter.fillRect(-25, PLAYER.HEIGHT / 2 - 15, 50, 8);
+    scooter.strokeRect(-25, PLAYER.HEIGHT / 2 - 15, 50, 8);
+    // Handle pole
+    scooter.lineStyle(3, 0x444444, 1);
+    scooter.lineBetween(15, PLAYER.HEIGHT / 2 - 15, 15, -PLAYER.HEIGHT / 2 + 10);
+    // Wheels (circles)
+    scooter.fillStyle(0x222222, 1);
+    scooter.fillCircle(-15, PLAYER.HEIGHT / 2 - 5, 8); // Back wheel
+    scooter.fillCircle(20, PLAYER.HEIGHT / 2 - 5, 8); // Front wheel
+    this.add(scooter);
+    
+    // Player body (brown for Wyatt)
+    this.sprite = this.scene.add.rectangle(0, -10, PLAYER.WIDTH - 10, PLAYER.HEIGHT - 20, 0x8b4513);
     this.add(this.sprite);
     
+    // Ninja Turtles/Monster Truck shirt (green for turtles)
+    const shirt = this.scene.add.rectangle(0, 5, PLAYER.WIDTH - 12, 25, 0x228b22);
+    this.add(shirt);
+    
     // Red shoes at bottom
-    const shoes = this.scene.add.rectangle(0, PLAYER.HEIGHT / 2 - 5, PLAYER.WIDTH - 10, 10, 0xff0000);
+    const shoes = this.scene.add.rectangle(0, PLAYER.HEIGHT / 2 - 15, PLAYER.WIDTH - 10, 12, 0xff0000);
     this.add(shoes);
     
+    // Brown shaggy hair at top
+    const hair = this.scene.add.graphics();
+    hair.fillStyle(0x654321, 1);
+    // Multiple circles for shaggy hair effect
+    for (let i = 0; i < 5; i++) {
+      const x = -15 + i * 8;
+      const y = -PLAYER.HEIGHT / 2 + 5;
+      hair.fillCircle(x, y, 6);
+    }
+    this.add(hair);
+    
     // Helmet (ALWAYS VISIBLE - constitutional requirement)
-    // Positioned at top of sprite
-    this.helmet = this.scene.add.circle(0, -PLAYER.HEIGHT / 2, 20, this.helmetColor);
+    // Positioned at top of sprite covering hair
+    this.helmet = this.scene.add.arc(0, -PLAYER.HEIGHT / 2 + 5, 22, 0, 180, false, this.helmetColor);
+    this.helmet.setStrokeStyle(2, 0x000000);
     this.add(this.helmet);
+    
+    // Simple face (eyes)
+    const leftEye = this.scene.add.circle(-8, -5, 3, 0x000000);
+    const rightEye = this.scene.add.circle(8, -5, 3, 0x000000);
+    this.add(leftEye);
+    this.add(rightEye);
   }
 
   /**

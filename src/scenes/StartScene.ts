@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { SCENES } from '../config/constants';
 import { Player } from '../entities/Player';
+import { SynthAudioManager } from '../systems/SynthAudioManager';
 
 /**
  * StartScene
@@ -9,6 +10,7 @@ import { Player } from '../entities/Player';
  */
 export class StartScene extends Phaser.Scene {
   private player!: Player;
+  private synthAudio!: SynthAudioManager;
 
   constructor() {
     super({ key: SCENES.START });
@@ -16,6 +18,10 @@ export class StartScene extends Phaser.Scene {
 
   create(): void {
     console.log('StartScene: create');
+    
+    // Initialize audio
+    this.synthAudio = new SynthAudioManager();
+    this.synthAudio.resume();
     
     const { width, height } = this.scale;
     
@@ -79,7 +85,15 @@ export class StartScene extends Phaser.Scene {
     
     // Start game on any key press
     this.input.keyboard?.once('keydown', () => {
-      this.scene.start(SCENES.GAME);
+      // Play start sound
+      this.synthAudio.playCollectSound('star');
+      
+      // Fade out transition (T116)
+      this.cameras.main.fadeOut(500, 0, 0, 0);
+      this.cameras.main.once('camerafadeoutcomplete', () => {
+        this.synthAudio.destroy();
+        this.scene.start(SCENES.GAME);
+      });
     });
   }
 }

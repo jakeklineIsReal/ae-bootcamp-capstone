@@ -134,10 +134,10 @@ Single web project structure:
 
 ### GameScene Implementation - Audio Feedback
 
-- [ ] T045 [US1] Add AudioManager integration in src/scenes/GameScene.ts (background music starts)
-- [ ] T046 [US1] Implement jump sound effect playback in src/scenes/GameScene.ts (triggered on jump action)
-- [ ] T047 [US1] Add obstacle interaction sounds in src/scenes/GameScene.ts (splash, bump, whoosh)
-- [ ] T048 [US1] Implement parent volume control access in src/scenes/GameScene.ts (pause menu or settings)
+- [X] T045 [US1] Add AudioManager integration in src/scenes/GameScene.ts (background music starts)
+- [X] T046 [US1] Implement jump sound effect playback in src/scenes/GameScene.ts (triggered on jump action)
+- [X] T047 [US1] Add obstacle interaction sounds in src/scenes/GameScene.ts (splash, bump, whoosh)
+- [X] T048 [US1] Implement parent volume control access in src/scenes/GameScene.ts (pause menu or settings)
 
 ### GameScene Implementation - Journey Completion
 
@@ -181,24 +181,24 @@ Single web project structure:
 
 ### Collectible Entity
 
-- [ ] T064 [P] [US2] Create Collectible class in src/entities/Collectible.ts with type, shape, position, and collected state
-- [ ] T065 [US2] Implement collectible floating animation in src/entities/Collectible.ts (gentle up/down movement)
-- [ ] T066 [US2] Add collectible collection effect in src/entities/Collectible.ts (particle sparkle, fade out)
-- [ ] T067 [US2] Configure distinct shapes and colors for star, heart, circle in src/entities/Collectible.ts
+- [X] T064 [P] [US2] Create Collectible class in src/entities/Collectible.ts with type, shape, position, and collected state
+- [X] T065 [US2] Implement collectible floating animation in src/entities/Collectible.ts (gentle up/down movement)
+- [X] T066 [US2] Add collectible collection effect in src/entities/Collectible.ts (particle sparkle, fade out)
+- [X] T067 [US2] Configure distinct shapes and colors for star, heart, circle in src/entities/Collectible.ts
 
 ### GameScene Integration - Collectibles
 
-- [ ] T068 [US2] Add collectible spawning along journey path in src/scenes/GameScene.ts (stars, hearts, circles at set positions)
-- [ ] T069 [US2] Integrate CollisionManager for player-collectible detection in src/scenes/GameScene.ts (extends existing collision system)
-- [ ] T070 [US2] Implement collectible collection handling in src/scenes/GameScene.ts (hide item, play sound, update score)
-- [ ] T071 [US2] Add unique audio for each collectible type in src/scenes/GameScene.ts (twinkle, chime, pop)
-- [ ] T072 [US2] Display score counter UI in src/scenes/GameScene.ts (top-left corner, shows total + breakdown)
-- [ ] T073 [US2] Update ScoreManager integration in src/scenes/GameScene.ts (increment by type, track totals)
+- [X] T068 [US2] Add collectible spawning along journey path in src/scenes/GameScene.ts (stars, hearts, circles at set positions)
+- [X] T069 [US2] Integrate CollisionManager for player-collectible detection in src/scenes/GameScene.ts (extends existing collision system)
+- [X] T070 [US2] Implement collectible collection handling in src/scenes/GameScene.ts (hide item, play sound, update score)
+- [X] T071 [US2] Add unique audio for each collectible type in src/scenes/GameScene.ts (twinkle, chime, pop)
+- [X] T072 [US2] Display score counter UI in src/scenes/GameScene.ts (top-left corner, shows total + breakdown)
+- [X] T073 [US2] Update ScoreManager integration in src/scenes/GameScene.ts (increment by type, track totals)
 
 ### CelebrationScene Enhancement
 
-- [ ] T074 [US2] Add collection summary display in src/scenes/CelebrationScene.ts (stars: X, hearts: Y, circles: Z)
-- [ ] T075 [US2] Enhance celebration based on collection count in src/scenes/CelebrationScene.ts (bonus confetti if collected many)
+- [X] T074 [US2] Add collection summary display in src/scenes/CelebrationScene.ts (stars: X, hearts: Y, circles: Z)
+- [X] T075 [US2] Enhance celebration based on collection count in src/scenes/CelebrationScene.ts (bonus confetti if collected many)
 
 ### Asset Preparation for US2
 
@@ -321,7 +321,7 @@ Single web project structure:
 
 ### UI/UX Polish
 
-- [ ] T116 [P] Add smooth scene transitions with fade effects in all scenes
+- [X] T116 [P] Add smooth scene transitions with fade effects in all scenes
 - [ ] T117 [P] Implement particle effects for celebration in src/scenes/CelebrationScene.ts (confetti)
 - [ ] T118 Add visual feedback for touch zones in src/scenes/GameScene.ts (optional button overlays)
 
