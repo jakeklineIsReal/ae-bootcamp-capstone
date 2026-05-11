@@ -55,34 +55,38 @@ Combine both concepts:
    - One or two button controls (arrow keys/WASD or simple gamepad)
    - Automatic forward movement option
    - Jump/trick button
+   - Audio cues for all control actions
 
 2. **Visual Design**
-   - Bright, colorful graphics
-   - Large, clear character sprite
+   - Bright, colorful graphics with shape/pattern support for accessibility
+   - Large, clear character sprite (representing your son)
    - Friendly, inviting environment
    - Recognizable landmarks (house, park, playground)
+   - Friend characters based on real friends
 
 3. **Safety Messaging**
    - Character always wears helmet
    - Positive reinforcement for safe riding
    - Avoid cars/traffic (stay on sidewalk/path)
+   - No failure states - purely encouraging
 
 4. **Progression & Rewards**
-   - Collectibles along the route (stars, coins, stickers)
+   - Collectibles along the route (stars, coins, stickers) with distinctive audio
    - Simple sound effects and visual celebrations
    - Arrival celebration at park with friends
+   - All feedback is positive and encouraging
 
 5. **Replay Value**
    - Quick play sessions (2-5 minutes)
    - Multiple collectible paths
-   - Unlockable scooter colors/decorations
-   - Friend characters to "race" against
+   - Friend characters to meet at the park
+   - Different routes to discover
 
 ### Nice-to-Have Features
-1. **Customization**
+1. **Customization** (Medium Priority - Add After Core Gameplay)
    - Choose helmet color/design
    - Choose scooter color/stickers
-   - Choose character appearance
+   - Unlock new designs through play
 
 2. **Multiple Levels**
    - Different routes to the park
@@ -91,13 +95,13 @@ Combine both concepts:
 
 3. **Tricks System**
    - Simple trick button (makes character do wheelie or jump)
-   - Visual "cool!" feedback
+   - Visual "cool!" feedback with audio cue
    - Optional trick points/collectibles
 
-4. **Parent Dashboard**
-   - Track play time
-   - View achievements
-   - Simple settings
+4. **Social Features**
+   - Share achievements (via screenshot or simple code)
+   - Parent can see play stats
+   - Simple congratulations messages
 
 ---
 
@@ -164,6 +168,41 @@ Combine both concepts:
 
 ## Game Design Specifications
 
+### Character Design
+
+#### Main Character: Wyatt
+- **Hair:** Brown, shortish but a bit shaggy
+- **Clothing:** Sweatpants or shorts with either:
+  - Ninja Turtles shirt, OR
+  - Monster truck shirt
+- **Distinctive Feature:** Red shoes (signature look!)
+- **Safety Gear:** Always wearing a helmet
+- **Transportation:** Riding a scooter
+- **Sprite Design Notes:** Age-appropriate proportions (larger head, simpler features for 2D sprite)
+  
+#### Friend Characters at the Park
+
+**Nico**
+- A little taller and older than Wyatt
+- Latin appearance
+- Friendly, welcoming presence
+
+**Marcus**
+- A little shorter than Wyatt
+- Filipino and white heritage
+- Approachable and fun
+
+**Otto** (The New Friend)
+- Curly auburn hair (distinctive!)
+- Similar height to Wyatt
+- Excited to meet at the park
+
+**Friend Character Notes:**
+- All wearing helmets when shown on scooters
+- Simple distinguishing features (height, hair, skin tone)
+- Friendly, welcoming poses at the playfield
+- Celebrating when Wyatt arrives
+
 ### Visual Style
 - **Art Style:** Cartoon/colorful 2D
 - **Perspective:** Side-scrolling (endless runner style) or top-down view
@@ -178,26 +217,31 @@ Combine both concepts:
 
 ### Sound Design
 - **Music:** Upbeat, cheerful background music (loopable)
-- **SFX:** 
+- **SFX (Critical for Accessibility):** 
   - Scooter sounds (rolling wheels)
-  - Collectible pickup sounds
+  - Collectible pickup sounds (unique for each type)
   - Jump/trick sounds
   - Arrival celebration
-  - Positive reinforcement sounds ("Great job!", "Awesome!")
+  - Positive reinforcement sounds ("Great job!", "Awesome!", "You did it!")
+  - Obstacle interaction sounds (friendly "bump" or "oops")
+  - Audio cues for ALL player actions
 - **Volume:** Parent-adjustable
+- **Design Note:** Audio provides important feedback for young players and accessibility
 
 ### Level Design
 - **Environment:** Neighborhood setting
   - Start: Home/house
   - Middle: Sidewalk/path with simple obstacles
-  - End: Playfield with playground equipment
+  - End: Wallingford playfield with playground equipment and friends
 - **Length:** 30-60 seconds of active play per run
-- **Obstacles:** 
-  - Puddles (jump over)
-  - Small rocks (avoid)
+- **Obstacles (No Failure State):** 
+  - Puddles (jump over or slow down slightly)
+  - Small rocks (avoid or bump gently)
   - Gentle hills (slow down/speed up)
   - Friendly NPCs to wave at
+  - All interactions are forgiving - no "game over"
 - **Collectibles:** Stars, stickers, or coins spread throughout
+- **Color Accessibility:** Use distinct shapes for different items (stars ⭐, hearts ❤️, circles ⚪)
 
 ---
 
@@ -250,11 +294,15 @@ Combine both concepts:
 - [ ] Game is engaging enough for multiple replays
 - [ ] Controls are responsive and age-appropriate
 - [ ] Game reinforces positive safety message (helmet wearing)
+- [ ] No frustration from failure states - purely positive experience
+- [ ] Character and friends are recognizable and meaningful
+- [ ] Audio cues provide clear feedback for all actions
 
 ### Educational Success
 - [ ] Reinforces safety concepts (helmet use)
 - [ ] Provides positive, encouraging feedback
 - [ ] Supports child's confidence and agency
+- [ ] Creates a personal connection through character representation
 
 ---
 
@@ -280,12 +328,28 @@ Combine both concepts:
 
 ## Next Steps
 
-1. **Validate Concept:** Confirm game concept with stakeholders (parent approval!)
-2. **Finalize Tech Stack:** Make final decision on platform and technologies
-3. **Set Up Environment:** Initialize project repository and development environment
-4. **Create Asset List:** Identify needed sprites, sounds, and visual assets
-5. **Start Development:** Begin Phase 1 implementation
-6. **Iterative Testing:** Regular playtesting with target audience
+1. ✅ **Gather Character Details** - COMPLETE
+   - Main character: Wyatt with brown shaggy hair, red shoes, ninja turtles/monster truck shirt
+   - Friends: Nico (taller, Latin), Marcus (shorter, Filipino/white), Otto (curly auburn hair)
+   
+2. **Set Up Development Environment**
+   - Initialize Phaser.js project with TypeScript
+   - Set up build tooling (Vite)
+   - Configure version control
+   
+3. **Create Asset List & Gather Resources**
+   - Character sprites (Wyatt + 3 friends)
+   - Scooter sprite
+   - Background elements (house, sidewalk, park)
+   - Collectibles (stars, hearts, circles)
+   - Sound effects and music
+   
+4. **Start Development - Phase 1**
+   - Implement basic character movement
+   - Create simple scrolling background
+   - Add basic collision detection
+   
+5. **Iterative Testing:** Regular playtesting with Wyatt
 
 ---
 
@@ -309,13 +373,28 @@ Combine both concepts:
 
 ---
 
-## Questions to Resolve
+## Design Decisions
 
-1. **Character Design:** Should the character represent your son, or be a generic character?
-2. **Friends:** Should friend characters be specific (based on real friends) or generic?
-3. **Customization Priority:** How important is character/scooter customization vs. core gameplay?
-4. **Difficulty:** Should there be any failure state, or purely positive experience?
-5. **Accessibility:** Any specific accessibility needs to consider?
+### Character & Personalization
+- **Main Character:** Will represent your son specifically for a more personal experience
+- **Friend Characters:** Based on real friends for added meaning and recognition
+- **Impact:** This makes the game a truly personal gift and increases engagement
+
+### Customization Approach
+- **Priority Level:** Medium priority
+- **Implementation:** Add basic customization (helmet colors, scooter designs) after core gameplay is working
+- **Rationale:** Balance between feature completeness and timely delivery
+
+### Difficulty Philosophy
+- **Approach:** No failure state - purely positive experience
+- **Design:** Age-appropriate for 4-year-old, focuses on exploration and celebration
+- **Mechanics:** Obstacles may slow player down but never cause "game over"
+- **Feedback:** Always encouraging and supportive
+
+### Accessibility Features
+- **Color Blindness Support:** Use shapes and patterns in addition to colors for important elements
+- **Audio Feedback:** Sound cues for all actions (jumps, collectibles, obstacles)
+- **Benefits:** Makes game more inclusive and provides multi-sensory feedback for young players
 
 ---
 
@@ -342,4 +421,11 @@ Combine both concepts:
 
 The web-based approach with Phaser.js provides the right balance of capability and achievability within the bootcamp timeframe, while still offering opportunities to demonstrate GitHub Copilot's capabilities in accelerating development.
 
-**Next Action:** Review this plan and begin environment setup and initial prototyping.
+**Key Design Principles Established:**
+- ✅ Personal and meaningful (character based on your son, friends based on real friends)
+- ✅ Purely positive experience (no failure states)
+- ✅ Accessible design (color blindness support, audio cues for all actions)
+- ✅ Safety-conscious (helmet messaging throughout)
+- ✅ Customization available but not blocking core gameplay
+
+**Next Action:** Gather character details and begin environment setup and initial prototyping.
