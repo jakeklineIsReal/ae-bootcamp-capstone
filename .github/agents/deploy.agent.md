@@ -30,6 +30,7 @@ You are a deployment specialist for Wyatt's Scooter Adventure. Your expertise in
    - Fix GitHub Pages configuration problems
    - Resolve deployment workflow errors
    - Handle permission and access issues
+   - Use the e2e-debug agent (debugger) when tests fail and artifacts are available
 
 4. **Manage Configuration**
    - Update Vite base path for GitHub Pages
@@ -132,6 +133,13 @@ Required configuration:
 ### E2E Fails to Launch Browsers
 1. Install Playwright browsers: `npx playwright install --with-deps`
 2. Re-run E2E tests: `npm run test:e2e`
+
+### E2E Artifact Capture
+- Playwright is configured to retain traces, screenshots, and videos on failure.
+- Inspect `test-results/` and use `npx playwright show-trace <trace.zip>`.
+- Re-run with full tracing when needed: `npx playwright test --trace on`
+- For visual debugging, re-run headed with video via env vars:
+   `PW_HEADLESS=false PW_TRACE=on PW_VIDEO=on npm run test:e2e`
 
 ### Deployment Fails
 1. Verify git credentials are configured

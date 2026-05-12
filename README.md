@@ -120,6 +120,24 @@ To enable GitHub Pages:
 - **Build Tool**: Vite 5.x - Fast build and hot module replacement
 - **Target**: Modern web browsers (desktop, tablet, mobile)
 
+## ✅ E2E Debugging
+
+Use these environment variables to control Playwright runs:
+
+- `E2E_BASE_URL`: Override base URL for live smoke tests.
+- `PW_HEADLESS`: Set to `false` to run headed.
+- `PW_TRACE`: Use `on` to always capture traces.
+- `PW_VIDEO`: Use `on` to always capture videos.
+
+Examples:
+```bash
+# Live smoke test
+E2E_BASE_URL=https://jakeklineisreal.github.io/ae-bootcamp-capstone/ npm run test:e2e
+
+# Headed with trace and video (local or live)
+PW_HEADLESS=false PW_TRACE=on PW_VIDEO=on npm run test:e2e
+```
+
 ## 📋 Development Status
 
 ### Phase 1: Setup ✅

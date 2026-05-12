@@ -18,6 +18,8 @@ export class CelebrationScene extends Phaser.Scene {
 
   create(data: { score?: number; stars?: number; hearts?: number; circles?: number }): void {
     console.log('CelebrationScene: create');
+
+    document.documentElement?.setAttribute('data-scene', SCENES.CELEBRATION);
     
     // Initialize audio and play celebration sound
     this.synthAudio = new SynthAudioManager();

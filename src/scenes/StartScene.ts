@@ -18,6 +18,8 @@ export class StartScene extends Phaser.Scene {
 
   create(): void {
     console.log('StartScene: create');
+
+    document.documentElement?.setAttribute('data-scene', SCENES.START);
     
     // Initialize audio
     this.synthAudio = new SynthAudioManager();

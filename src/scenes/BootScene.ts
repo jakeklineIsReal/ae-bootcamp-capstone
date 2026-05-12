@@ -19,6 +19,8 @@ export class BootScene extends Phaser.Scene {
 
   create(): void {
     console.log('BootScene: create - transitioning to StartScene');
+
+    document.documentElement?.setAttribute('data-scene', SCENES.BOOT);
     
     // Transition to StartScene
     this.scene.start(SCENES.START);

@@ -48,6 +48,8 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     console.log('GameScene: create');
+
+    document.documentElement?.setAttribute('data-scene', SCENES.GAME);
     
     // Initialize managers
     this.audioManager = new AudioManager(this);
