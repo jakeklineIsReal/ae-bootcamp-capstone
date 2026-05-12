@@ -55,8 +55,9 @@ export class Obstacle extends Phaser.GameObjects.Rectangle {
         break;
     }
 
-    scene.add.existing(this);
-    scene.physics.add.existing(this, true); // Static body
+    // Don't add to scene here - will be added by physics group
+    // scene.add.existing(this);
+    // scene.physics.add.existing(this, true); // Static body
   }
 
   /**

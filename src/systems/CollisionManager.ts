@@ -74,8 +74,8 @@ export class CollisionManager {
    * Setup collision between two physics groups
    */
   setupCollision(
-    group1: Phaser.Physics.Arcade.Group | Phaser.Types.Physics.Arcade.GameObjectWithBody,
-    group2: Phaser.Physics.Arcade.Group | Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    group1: Phaser.Physics.Arcade.Group | Phaser.Physics.Arcade.StaticGroup | Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    group2: Phaser.Physics.Arcade.Group | Phaser.Physics.Arcade.StaticGroup | Phaser.Types.Physics.Arcade.GameObjectWithBody,
     callback?: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback,
     processCallback?: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback
   ): void {
@@ -86,8 +86,8 @@ export class CollisionManager {
    * Setup overlap detection (no physical collision, just detection)
    */
   setupOverlap(
-    group1: Phaser.Physics.Arcade.Group | Phaser.Types.Physics.Arcade.GameObjectWithBody,
-    group2: Phaser.Physics.Arcade.Group | Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    group1: Phaser.Physics.Arcade.Group | Phaser.Physics.Arcade.StaticGroup | Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    group2: Phaser.Physics.Arcade.Group | Phaser.Physics.Arcade.StaticGroup | Phaser.Types.Physics.Arcade.GameObjectWithBody,
     callback?: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback,
     processCallback?: Phaser.Types.Physics.Arcade.ArcadePhysicsCallback
   ): void {

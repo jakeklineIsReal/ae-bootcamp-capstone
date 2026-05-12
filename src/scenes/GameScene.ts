@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { SCENES, WORLD, CAMERA } from '../config/constants';
+import { SCENES, WORLD, CAMERA, COLLECTIBLE } from '../config/constants';
 import { AudioManager } from '../systems/AudioManager';
 import { SynthAudioManager } from '../systems/SynthAudioManager';
 import { ScoreManager } from '../systems/ScoreManager';
@@ -22,7 +22,8 @@ export class GameScene extends Phaser.Scene {
   
   // Game objects
   private player!: Player;
-  private obstacles!: Phaser.Physics.Arcade.Group;
+  private ground!: Phaser.GameObjects.Rectangle;
+  private obstacles!: Phaser.Physics.Arcade.StaticGroup;
   private collectibles!: Phaser.Physics.Arcade.Group;
   
   // Input
@@ -60,8 +61,9 @@ export class GameScene extends Phaser.Scene {
     // Resume audio context after user interaction
     this.synthAudio.resume();
     
-    // Fade in transition (T116)
-    this.cameras.main.fadeIn(500, 0, 0, 0);
+    // Fade in transition (T116) - temporarily disabled for debugging
+    // this.cameras.main.fadeIn(500, 0, 0, 0);
+    console.log('Camera setup, skipping fade for debug');
     
     // Setup world
     this.setupWorld();
@@ -92,27 +94,37 @@ export class GameScene extends Phaser.Scene {
     
     // Add volume control UI (T048)
     this.setupVolumeControls();
+    
+    console.log('GameScene: create complete!');
   }
 
   private setupWorld(): void {
+    console.log('GameScene: setupWorld');
     // Set world bounds
     this.physics.world.setBounds(0, 0, WORLD.WIDTH, WORLD.HEIGHT);
     
     // Create simple background (sky blue)
-    this.add.rectangle(WORLD.WIDTH / 2, WORLD.HEIGHT / 2, WORLD.WIDTH, WORLD.HEIGHT, 0x87ceeb);
+    const bg = this.add.rectangle(WORLD.WIDTH / 2, WORLD.HEIGHT / 2, WORLD.WIDTH, WORLD.HEIGHT, 0x87ceeb);
+    bg.setDepth(-2); // Ensure it's behind everything
+    console.log('Background created at', bg.x, bg.y, 'size:', WORLD.WIDTH, WORLD.HEIGHT);
     
     // Create ground
-    const ground = this.add.rectangle(WORLD.WIDTH / 2, WORLD.GROUND_Y, WORLD.WIDTH, 100, 0x228b22);
-    this.physics.add.existing(ground, true); // Static body
+    this.ground = this.add.rectangle(WORLD.WIDTH / 2, WORLD.GROUND_Y, WORLD.WIDTH, 100, 0x228b22);
+    this.ground.setDepth(-1);
+    this.physics.add.existing(this.ground, true); // Static body
+    console.log('Ground created at', this.ground.x, this.ground.y);
   }
 
   private spawnPlayer(): void {
+    console.log('GameScene: spawnPlayer');
     // Spawn player at start position
     this.player = new Player(this, 100, WORLD.GROUND_Y - 100);
+    console.log('Player spawned at', this.player.x, this.player.y);
   }
 
   private setupObstacles(): void {
-    this.obstacles = this.physics.add.group();
+    console.log('GameScene: setupObstacles');
+    this.obstacles = this.physics.add.staticGroup();
     
     // Place obstacles along the journey
     // Puddles, rocks, hills at various positions
@@ -129,12 +141,16 @@ export class GameScene extends Phaser.Scene {
     
     obstaclePositions.forEach(pos => {
       const obstacle = new Obstacle(this, pos.x, pos.y, pos.type);
+      this.add.existing(obstacle);
       this.obstacles.add(obstacle);
     });
+    console.log('Created', obstaclePositions.length, 'obstacles');
   }
 
   private setupCollectibles(): void {
-    this.collectibles = this.physics.add.group();
+    this.collectibles = this.physics.add.group({
+      allowGravity: false,
+    });
     
     // Place collectibles along the journey (T068)
     // Mix of stars, hearts, and circles
@@ -157,7 +173,14 @@ export class GameScene extends Phaser.Scene {
     
     collectiblePositions.forEach(pos => {
       const collectible = new Collectible(this, pos.x, pos.y, pos.type);
+      this.add.existing(collectible);
       this.collectibles.add(collectible);
+      // Configure physics body after adding to group
+      const body = collectible.body as Phaser.Physics.Arcade.Body;
+      if (body) {
+        body.setCircle(COLLECTIBLE.SIZE / 2);
+        body.setAllowGravity(false);
+      }
     });
   }
 
@@ -213,6 +236,9 @@ export class GameScene extends Phaser.Scene {
   }
 
   private setupCollisions(): void {
+    // Player-ground collision (so player stands on ground)
+    this.physics.add.collider(this.player, this.ground);
+    
     // Player-obstacle overlap (not collision - obstacles don't block)
     this.collisionManager.setupOverlap(
       this.player,
@@ -331,29 +357,35 @@ export class GameScene extends Phaser.Scene {
   }
 
   private setupVolumeControls(): void {
-    const { width } = this.scale;
-    
-    // Mute/Unmute button (T048: Parent volume control)
-    const muteButton = this.add.text(width - 100, 20, '🔊 Mute', {
-      fontSize: '18px',
-      color: '#ffffff',
-      backgroundColor: '#00000080',
-      padding: { x: 10, y: 5 },
-    });
-    muteButton.setScrollFactor(0);
-    muteButton.setInteractive({ useHandCursor: true });
-    
-    muteButton.on('pointerdown', () => {
-      this.synthAudio.toggleMute();
-      muteButton.setText(this.synthAudio.isMuted() ? '🔇 Unmute' : '🔊 Mute');
-    });
-    
-    // Volume slider indicators (visual feedback)
-    const volumeText = this.add.text(width - 230, 20, 'Volume', {
-      fontSize: '16px',
-      color: '#ffffff',
-    });
-    volumeText.setScrollFactor(0);
+    console.log('GameScene: setupVolumeControls');
+    try {
+      const { width } = this.scale;
+      
+      // Mute/Unmute button (T048: Parent volume control)
+      const muteButton = this.add.text(width - 100, 20, '🔊 Mute', {
+        fontSize: '18px',
+        color: '#ffffff',
+        backgroundColor: '#00000080',
+        padding: { x: 10, y: 5 },
+      });
+      muteButton.setScrollFactor(0);
+      muteButton.setInteractive({ useHandCursor: true });
+      
+      muteButton.on('pointerdown', () => {
+        this.synthAudio.toggleMute();
+        muteButton.setText(this.synthAudio.isMuted() ? '🔇 Unmute' : '🔊 Mute');
+      });
+      
+      // Volume slider indicators (visual feedback)
+      const volumeText = this.add.text(width - 230, 20, 'Volume', {
+        fontSize: '16px',
+        color: '#ffffff',
+      });
+      volumeText.setScrollFactor(0);
+      console.log('Volume controls created');
+    } catch (error) {
+      console.error('Error in setupVolumeControls:', error);
+    }
   }
 
   update(_time: number, delta: number): void {

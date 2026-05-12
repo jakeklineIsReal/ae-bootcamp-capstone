@@ -190,18 +190,50 @@ export class SynthAudioManager {
     
     this.isMusicPlaying = true;
     
-    // Simple C major chord (C, E, G)
-    const frequencies = [261.63, 329.63, 392.00]; // C4, E4, G4
+    // Simple upbeat melody pattern (C major pentatonic)
+    // Using quieter volume and pleasant sine waves
+    const notes = [
+      { freq: 261.63, start: 0, duration: 0.4 },    // C4
+      { freq: 293.66, start: 0.4, duration: 0.4 },  // D4
+      { freq: 329.63, start: 0.8, duration: 0.4 },  // E4
+      { freq: 392.00, start: 1.2, duration: 0.4 },  // G4
+      { freq: 329.63, start: 1.6, duration: 0.4 },  // E4
+      { freq: 293.66, start: 2.0, duration: 0.4 },  // D4
+      { freq: 261.63, start: 2.4, duration: 0.8 },  // C4 (longer)
+    ];
     
-    frequencies.forEach(freq => {
-      const osc = this.audioContext!.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, this.audioContext!.currentTime);
-      osc.connect(this.musicGain!);
-      osc.start();
-      
-      this.musicOscillators.push(osc);
-    });
+    const now = this.audioContext.currentTime;
+    const loopDuration = 3.2; // Total pattern duration
+    
+    // Play the pattern in a loop
+    const playPattern = (offset: number = 0) => {
+      notes.forEach(note => {
+        const osc = this.audioContext!.createOscillator();
+        const gain = this.audioContext!.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(note.freq, now + offset + note.start);
+        
+        // Envelope for each note
+        gain.gain.setValueAtTime(0, now + offset + note.start);
+        gain.gain.linearRampToValueAtTime(0.08, now + offset + note.start + 0.02);
+        gain.gain.setValueAtTime(0.08, now + offset + note.start + note.duration - 0.05);
+        gain.gain.linearRampToValueAtTime(0, now + offset + note.start + note.duration);
+        
+        osc.connect(gain);
+        gain.connect(this.musicGain!);
+        
+        osc.start(now + offset + note.start);
+        osc.stop(now + offset + note.start + note.duration);
+        
+        this.musicOscillators.push(osc);
+      });
+    };
+    
+    // Play pattern 10 times (32 seconds of music)
+    for (let i = 0; i < 10; i++) {
+      playPattern(i * loopDuration);
+    }
   }
 
   /**

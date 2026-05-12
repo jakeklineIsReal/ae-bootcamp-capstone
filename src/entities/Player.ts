@@ -33,7 +33,7 @@ export class Player extends Phaser.GameObjects.Container {
     // Configure physics body
     this.body.setSize(PLAYER.WIDTH, PLAYER.HEIGHT);
     this.body.setCollideWorldBounds(true);
-    this.body.setGravityY(0); // Gravity handled by physics world
+    // Use world gravity (800) - player will fall naturally
   }
 
   private createSprite(): void {

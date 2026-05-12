@@ -22,8 +22,8 @@ export class Collectible extends Phaser.GameObjects.Container {
     
     this.type = type;
     
-    // Add to scene
-    scene.add.existing(this);
+    // Don't add to scene here - will be added by physics group
+    // scene.add.existing(this);
     
     // Create visual shape
     this.createShape();
@@ -31,11 +31,11 @@ export class Collectible extends Phaser.GameObjects.Container {
     // Add floating animation
     this.addFloatingAnimation();
     
-    // Add physics body
-    scene.physics.add.existing(this);
-    const body = this.body as Phaser.Physics.Arcade.Body;
-    body.setCircle(COLLECTIBLE.SIZE / 2);
-    body.setAllowGravity(false);
+    // Physics body will be configured by the physics group
+    // scene.physics.add.existing(this);
+    // const body = this.body as Phaser.Physics.Arcade.Body;
+    // body.setCircle(COLLECTIBLE.SIZE / 2);
+    // body.setAllowGravity(false);
   }
 
   private createShape(): void {
