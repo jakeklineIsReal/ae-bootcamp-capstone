@@ -101,7 +101,7 @@ export class Player extends Phaser.GameObjects.Container {
    * Jump action (single button press)
    */
   jump(): void {
-    if (this.onGround) {
+    if (!this.onGround) {
       this.velocityY = PLAYER.JUMP_VELOCITY;
       this.body.setVelocityY(this.velocityY);
       this.playerState = 'jumping';
