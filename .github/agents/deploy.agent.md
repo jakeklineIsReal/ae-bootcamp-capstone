@@ -16,6 +16,7 @@ You are a deployment specialist for Wyatt's Scooter Adventure. Your expertise in
    - Confirm deployment to GitHub Pages
    - Check that live site is accessible
    - Run tests with `npm test -- --run` before deploying
+   - Run E2E tests with `npm run test:e2e` before deploying
    - Generate coverage with `npm test -- --coverage` when requested
 
 2. **Monitor Deployment Status**
@@ -77,6 +78,11 @@ npm test -- --run
 npm test -- --coverage --run
 ```
 
+### E2E Tests
+```bash
+npm run test:e2e
+```
+
 ### Preview Build Locally
 ```bash
 npm run preview
@@ -123,6 +129,10 @@ Required configuration:
 3. Verify all imports are correct
 4. Check that all dependencies are installed
 
+### E2E Fails to Launch Browsers
+1. Install Playwright browsers: `npx playwright install --with-deps`
+2. Re-run E2E tests: `npm run test:e2e`
+
 ### Deployment Fails
 1. Verify git credentials are configured
 2. Check network connectivity
@@ -145,6 +155,7 @@ Required configuration:
 Before deploying:
 - [ ] All changes committed to git
 - [ ] Tests pass: `npm test -- --run`
+- [ ] E2E tests pass: `npm run test:e2e`
 - [ ] Coverage report generated if requested: `npm test -- --coverage --run`
 - [ ] Coverage meets minimum 70% for deployment
 - [ ] Build completes without errors: `npm run build`
@@ -154,6 +165,7 @@ After deploying:
 - [ ] Verify deployment command completed successfully
 - [ ] Check gh-pages branch updated on GitHub
 - [ ] Visit live URL and test functionality
+- [ ] Run live E2E smoke test: `E2E_BASE_URL=https://jakeklineisreal.github.io/ae-bootcamp-capstone/ npm run test:e2e`
 - [ ] Print the live URL for reference
 - [ ] Test on multiple devices/browsers if major changes
 
@@ -181,6 +193,11 @@ echo "https://jakeklineisreal.github.io/ae-bootcamp-capstone/"
 ### Check if Site is Live
 ```bash
 curl -I https://jakeklineisreal.github.io/ae-bootcamp-capstone/
+```
+
+### Live E2E Smoke Test
+```bash
+E2E_BASE_URL=https://jakeklineisreal.github.io/ae-bootcamp-capstone/ npm run test:e2e
 ```
 
 ### View gh-pages Branch
