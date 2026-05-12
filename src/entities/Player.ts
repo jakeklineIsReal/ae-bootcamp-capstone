@@ -103,6 +103,7 @@ export class Player extends Phaser.GameObjects.Container {
   jump(): void {
     if (this.onGround) {
       this.velocityY = PLAYER.JUMP_VELOCITY;
+      this.body.setVelocityY(this.velocityY);
       this.playerState = 'jumping';
       this.onGround = false;
     }
@@ -124,13 +125,15 @@ export class Player extends Phaser.GameObjects.Container {
   update(): void {
     // Apply velocities
     this.body.setVelocityX(this.velocityX);
-    this.body.setVelocityY(this.velocityY);
+    this.velocityY = this.body.velocity.y;
     
     // Check if on ground (for jump logic)
-    this.onGround = this.body.touching.down;
+    this.onGround = this.body.blocked.down || this.body.touching.down;
     
     if (this.onGround && this.playerState === 'jumping') {
       this.playerState = this.velocityX > 0 ? 'walking' : 'idle';
+      this.velocityY = 0;
+      this.body.setVelocityY(0);
     }
     
     // Clamp velocities

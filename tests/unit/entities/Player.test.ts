@@ -170,7 +170,7 @@ describe('Player Entity', () => {
       player.update();
       
       expect(player.body.setVelocityX).toHaveBeenCalledWith(100);
-      expect(player.body.setVelocityY).toHaveBeenCalledWith(-200);
+      expect(player.body.setVelocityY).not.toHaveBeenCalled();
     });
 
     test('velocity is clamped to max values', () => {

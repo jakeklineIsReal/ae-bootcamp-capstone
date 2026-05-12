@@ -21,7 +21,7 @@ export default defineConfig({
     trace: traceMode,
   },
   webServer: {
-    command: 'npm run preview -- --host --port 4173',
+    command: 'npm run build && npm run preview -- --host --port 4173',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

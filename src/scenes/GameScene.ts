@@ -41,6 +41,8 @@ export class GameScene extends Phaser.Scene {
   private journeyDistance: number = 0;
   private isSlowed: boolean = false;
   private slowTimer: number = 0;
+  private debugFrameCount: number = 0;
+  private hasMarkedReady: boolean = false;
 
   constructor() {
     super({ key: SCENES.GAME });
@@ -50,6 +52,7 @@ export class GameScene extends Phaser.Scene {
     console.log('GameScene: create');
 
     document.documentElement?.setAttribute('data-scene', SCENES.GAME);
+    this.markGameReady();
     
     // Initialize managers
     this.audioManager = new AudioManager(this);
@@ -390,9 +393,35 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  private markGameReady(): void {
+    if (this.hasMarkedReady) {
+      return;
+    }
+
+    const root = document.documentElement;
+    const body = document.body;
+
+    root?.setAttribute('data-game-ready', 'true');
+    body?.setAttribute('data-game-ready', 'true');
+
+    if (root?.getAttribute('data-game-ready') === 'true' || body?.getAttribute('data-game-ready') === 'true') {
+      this.hasMarkedReady = true;
+    }
+  }
+
   update(_time: number, delta: number): void {
+    this.markGameReady();
+
+    this.debugFrameCount += 1;
+    if (this.debugFrameCount % 10 === 0) {
+      document.documentElement?.setAttribute('data-game-tick', String(this.debugFrameCount));
+    }
+
     // Update player physics
     this.player.update();
+
+    document.documentElement?.setAttribute('data-player-y', String(Math.round(this.player.y)));
+    document.documentElement?.setAttribute('data-player-on-ground', this.player.isOnGround() ? 'true' : 'false');
     
     // Handle movement input
     this.updateMovement();

@@ -1,6 +1,63 @@
 import { test, expect } from '@playwright/test';
+import { promises as fs } from 'fs';
+import path from 'path';
 
-test('start screen advances to game without black screen', async ({ page }) => {
+test.describe('Start to Game', () => {
+  let consoleMessages: string[] = [];
+  let pageErrors: string[] = [];
+  let requestFailures: string[] = [];
+
+  test.beforeEach(async ({ page }) => {
+    consoleMessages = [];
+    pageErrors = [];
+    requestFailures = [];
+
+    page.on('console', (msg) => {
+      const location = msg.location();
+      const locationText = location.url ? ` (${location.url}:${location.lineNumber})` : '';
+      consoleMessages.push(`[${msg.type()}] ${msg.text()}${locationText}`);
+    });
+
+    page.on('pageerror', (error) => {
+      pageErrors.push(error.message);
+    });
+
+    page.on('requestfailed', (request) => {
+      requestFailures.push(`${request.method()} ${request.url()} - ${request.failure()?.errorText ?? 'unknown'}`);
+    });
+  });
+
+  test.afterEach(async ({ page }, testInfo) => {
+    await fs.mkdir(testInfo.outputDir, { recursive: true });
+
+    if (consoleMessages.length > 0) {
+      const outputPath = path.join(testInfo.outputDir, 'console-messages.txt');
+      await fs.writeFile(outputPath, consoleMessages.join('\n'), 'utf8');
+      await testInfo.attach('console-messages', { path: outputPath, contentType: 'text/plain' });
+    }
+
+    if (pageErrors.length > 0) {
+      const outputPath = path.join(testInfo.outputDir, 'page-errors.txt');
+      await fs.writeFile(outputPath, pageErrors.join('\n'), 'utf8');
+      await testInfo.attach('page-errors', { path: outputPath, contentType: 'text/plain' });
+    }
+
+    if (requestFailures.length > 0) {
+      const outputPath = path.join(testInfo.outputDir, 'request-failures.txt');
+      await fs.writeFile(outputPath, requestFailures.join('\n'), 'utf8');
+      await testInfo.attach('request-failures', { path: outputPath, contentType: 'text/plain' });
+    }
+
+    try {
+      const htmlPath = path.join(testInfo.outputDir, 'page.html');
+      await fs.writeFile(htmlPath, await page.content(), 'utf8');
+      await testInfo.attach('page-html', { path: htmlPath, contentType: 'text/html' });
+    } catch {
+      // Best-effort only; ignore if page is closed.
+    }
+  });
+
+  test('start screen advances to game without black screen', async ({ page }) => {
   await page.goto('./');
 
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -8,12 +65,27 @@ test('start screen advances to game without black screen', async ({ page }) => {
   const canvas = page.locator('canvas');
   await expect(canvas).toBeVisible();
 
+  await page.waitForFunction(() => {
+    return document.documentElement.getAttribute('data-scene') === 'StartScene';
+  });
+
   await page.waitForTimeout(500);
+  await canvas.click({ position: { x: 10, y: 10 } });
   await page.keyboard.press('Space');
 
   await page.waitForFunction(() => {
     return document.documentElement.getAttribute('data-scene') === 'GameScene';
   });
+
+  await page.waitForFunction(() => {
+    return document.documentElement.getAttribute('data-game-ready') === 'true';
+  });
+
+  const initialTick = await page.evaluate(() => document.documentElement.getAttribute('data-game-tick'));
+  await page.waitForFunction((previousTick) => {
+    const currentTick = document.documentElement.getAttribute('data-game-tick');
+    return currentTick !== null && currentTick !== previousTick;
+  }, initialTick);
 
   await page.waitForTimeout(2000);
 
@@ -104,5 +176,44 @@ test('start screen advances to game without black screen', async ({ page }) => {
   await test.info().attach('post-transition', {
     body: screenshot,
     contentType: 'image/png',
+  });
+  });
+
+  test('arrow up jump returns to ground', async ({ page }) => {
+    await page.goto('./');
+    await page.setViewportSize({ width: 1440, height: 900 });
+
+    const canvas = page.locator('canvas');
+    await expect(canvas).toBeVisible();
+
+    await page.waitForFunction(() => {
+      return document.documentElement.getAttribute('data-scene') === 'StartScene';
+    });
+
+    await canvas.click({ position: { x: 10, y: 10 } });
+    await page.keyboard.press('Space');
+
+    await page.waitForFunction(() => {
+      return document.documentElement.getAttribute('data-game-ready') === 'true';
+    });
+
+    await page.waitForFunction(() => {
+      return document.documentElement.getAttribute('data-player-on-ground') === 'true';
+    });
+
+    const startY = await page.evaluate(() => Number(document.documentElement.getAttribute('data-player-y')));
+
+    await page.keyboard.press('ArrowUp');
+
+    await page.waitForFunction(() => {
+      return document.documentElement.getAttribute('data-player-on-ground') === 'false';
+    });
+
+    await page.waitForFunction(() => {
+      return document.documentElement.getAttribute('data-player-on-ground') === 'true';
+    });
+
+    const endY = await page.evaluate(() => Number(document.documentElement.getAttribute('data-player-y')));
+    expect(Math.abs(endY - startY)).toBeLessThan(10);
   });
 });

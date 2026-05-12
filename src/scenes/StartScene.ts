@@ -58,7 +58,7 @@ export class StartScene extends Phaser.Scene {
       fontStyle: 'bold',
     }).setOrigin(0.5);
     
-    this.add.text(width / 2, 460, 'Arrow Keys or WASD to move', {
+    this.add.text(width / 2, 460, 'RIGHT or D to scoot (auto-moves)', {
       fontSize: '20px',
       color: '#ffffff',
     }).setOrigin(0.5);
