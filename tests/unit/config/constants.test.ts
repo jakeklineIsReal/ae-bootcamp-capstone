@@ -239,7 +239,7 @@ describe('Game Constants', () => {
 
   describe('Constitutional Requirement: Age-First Design (Simple Controls)', () => {
     test('INPUT has jump keys defined', () => {
-      expect(INPUTJUMP_KEYS).toBeDefined();
+      expect(INPUT.JUMP_KEYS).toBeDefined();
       expect(INPUT.JUMP_KEYS.length).toBeGreaterThan(0);
     });
 

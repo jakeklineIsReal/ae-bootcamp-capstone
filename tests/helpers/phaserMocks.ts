@@ -26,6 +26,8 @@ export function createMockScene(): any {
       sprite: vi.fn().mockReturnValue(createMockPhysicsSprite()),
       staticGroup: vi.fn().mockReturnValue(createMockPhysicsGroup()),
       group: vi.fn().mockReturnValue(createMockPhysicsGroup()),
+      collider: vi.fn(),
+      overlap: vi.fn(),
     },
     world: {
       gravity: { y: 800 },
@@ -182,6 +184,7 @@ export function createMockGraphics(): any {
     strokeRect: vi.fn().mockReturnThis(),
     fillCircle: vi.fn().mockReturnThis(),
     strokeCircle: vi.fn().mockReturnThis(),
+    arc: vi.fn().mockReturnThis(),
     lineBetween: vi.fn().mockReturnThis(),
     beginPath: vi.fn().mockReturnThis(),
     moveTo: vi.fn().mockReturnThis(),

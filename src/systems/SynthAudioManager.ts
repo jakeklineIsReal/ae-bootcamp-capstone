@@ -119,7 +119,7 @@ export class SynthAudioManager {
   /**
    * Play collectible pickup sound (pleasant chime)
    */
-  playCollectSound(type: 'star' | 'heart' | 'circle'): void {
+  playCollectSound(type: 'star' | 'heart' | 'circle' = 'star'): void {
     if (!this.audioContext || !this.sfxGain) return;
     
     const now = this.audioContext.currentTime;
@@ -180,6 +180,13 @@ export class SynthAudioManager {
       osc.start(now + note.time);
       osc.stop(now + note.time + 0.2);
     });
+  }
+
+  /**
+   * Backwards-compatible alias for celebration sound
+   */
+  playCelebrateSound(): void {
+    this.playCelebrationSound();
   }
 
   /**

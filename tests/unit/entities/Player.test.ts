@@ -9,7 +9,7 @@
 
 import { describe, test, expect, beforeEach, vi } from 'vitest';
 import { Player } from '../../../src/entities/Player';
-import { createMockScene, MockPhaserMath } from '../../helpers/phaserMocks';
+import { createMockScene } from '../../helpers/phaserMocks';
 import { PLAYER } from '../../../src/config/constants';
 
 // Mock Phaser
@@ -33,8 +33,8 @@ vi.mock('phaser', () => ({
             blocked: {},
             setSize: vi.fn().mockReturnThis(),
             setCollideWorldBounds: vi.fn().mockReturnThis(),
-            setVelocityX: vi.fn((vx: number) => { this.velocity.x = vx; }),
-            setVelocityY: vi.fn((vy: number) => { this.velocity.y = vy; }),
+            setVelocityX: vi.fn((vx: number) => { this.body.velocity.x = vx; }),
+            setVelocityY: vi.fn((vy: number) => { this.body.velocity.y = vy; }),
           };
         }
         
@@ -44,7 +44,7 @@ vi.mock('phaser', () => ({
       },
     },
     Math: {
-      Clamp: MockPhaserMath.Clamp,
+      Clamp: (value: number, min: number, max: number) => Math.max(min, Math.min(max, value)),
     },
   },
 }));
@@ -155,7 +155,7 @@ describe('Player Entity', () => {
       player['velocityX'] = PLAYER.WALK_SPEED;
       
       // Simulate landing
-      player['onGround'] = true;
+      player.body.touching.down = true;
       player.update();
       
       expect(player.getState()).toBe('walking');

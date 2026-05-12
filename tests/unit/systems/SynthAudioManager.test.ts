@@ -14,6 +14,8 @@ describe('SynthAudioManager', () => {
   let synthAudio: SynthAudioManager;
   let mockOscillator: any;
   let mockGain: any;
+  let mockMusicGain: any;
+  let mockSfxGain: any;
 
   beforeEach(() => {
     // Mock oscillator
@@ -34,11 +36,37 @@ describe('SynthAudioManager', () => {
       gain: {
         setValueAtTime: vi.fn(),
         exponentialRampToValueAtTime: vi.fn(),
+        linearRampToValueAtTime: vi.fn(),
         value: 1,
       },
     };
 
+    mockMusicGain = {
+      ...mockGain,
+      gain: {
+        ...mockGain.gain,
+        value: 0.3,
+      },
+    };
+
+    mockSfxGain = {
+      ...mockGain,
+      gain: {
+        ...mockGain.gain,
+        value: 0.5,
+      },
+    };
+
     synthAudio = new SynthAudioManager();
+
+    const audioContext = synthAudio['audioContext'] as any;
+    if (audioContext) {
+      audioContext.createOscillator.mockReturnValue(mockOscillator);
+      audioContext.createGain.mockReturnValue(mockGain);
+    }
+
+    synthAudio['musicGain'] = mockMusicGain;
+    synthAudio['sfxGain'] = mockSfxGain;
   });
 
   describe('Initialization', () => {

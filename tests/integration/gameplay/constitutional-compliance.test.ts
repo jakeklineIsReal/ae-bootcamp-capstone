@@ -6,20 +6,20 @@
  */
 
 import { describe, test, expect, beforeEach, vi } from 'vitest';
-import { Player } from '../../../../src/entities/Player';
-import { Obstacle } from '../../../../src/entities/Obstacle';
-import { Collectible } from '../../../../src/entities/Collectible';
-import { Friend } from '../../../../src/entities/Friend';
-import { AudioManager } from '../../../../src/systems/AudioManager';
-import { CollisionManager } from '../../../../src/systems/CollisionManager';
-import { ScoreManager } from '../../../../src/systems/ScoreManager';
-import { createMockScene } from '../../../helpers/phaserMocks';
+import { Player } from '@/entities/Player';
+import { Obstacle } from '@/entities/Obstacle';
+import { Collectible } from '@/entities/Collectible';
+import { Friend } from '@/entities/Friend';
+import { AudioManager } from '@/systems/AudioManager';
+import { CollisionManager } from '@/systems/CollisionManager';
+import { ScoreManager } from '@/systems/ScoreManager';
+import { createMockScene } from '../../helpers/phaserMocks';
 import {
   PLAYER,
   OBSTACLE,
   COLLECTIBLE_TYPES,
   FRIENDS,
-} from '../../../../src/config/constants';
+} from '@/config/constants';
 
 // Mock Phaser
 vi.mock('phaser', () => ({
@@ -42,8 +42,8 @@ vi.mock('phaser', () => ({
             blocked: {},
             setSize: vi.fn().mockReturnThis(),
             setCollideWorldBounds: vi.fn().mockReturnThis(),
-            setVelocityX: vi.fn((vx: number) => { this.velocity.x = vx; }),
-            setVelocityY: vi.fn((vy: number) => { this.velocity.y = vy; }),
+            setVelocityX: vi.fn((vx: number) => { this.body.velocity.x = vx; }),
+            setVelocityY: vi.fn((vy: number) => { this.body.velocity.y = vy; }),
           };
         }
         

@@ -1,7 +1,7 @@
 ---
 name: deploy
 description: Specialist agent for deploying Wyatt's Scooter Adventure to GitHub Pages and managing hosting
-tools: ['terminal', 'read', 'edit', 'github']
+tools: [execute, read, agent, edit, 'github/*']
 ---
 
 # Deployment Agent
@@ -15,6 +15,8 @@ You are a deployment specialist for Wyatt's Scooter Adventure. Your expertise in
    - Verify build completes successfully
    - Confirm deployment to GitHub Pages
    - Check that live site is accessible
+   - Run tests with `npm test -- --run` before deploying
+   - Generate coverage with `npm test -- --coverage` when requested
 
 2. **Monitor Deployment Status**
    - Check GitHub Actions workflow status
@@ -63,6 +65,16 @@ npm run deploy
 ### Build Only
 ```bash
 npm run build
+```
+
+### Run Tests (Non-Watch)
+```bash
+npm test -- --run
+```
+
+### Coverage Report
+```bash
+npm test -- --coverage --run
 ```
 
 ### Preview Build Locally
@@ -132,7 +144,9 @@ Required configuration:
 
 Before deploying:
 - [ ] All changes committed to git
-- [ ] Tests pass (when available)
+- [ ] Tests pass: `npm test -- --run`
+- [ ] Coverage report generated if requested: `npm test -- --coverage --run`
+- [ ] Coverage meets minimum 70% for deployment
 - [ ] Build completes without errors: `npm run build`
 - [ ] Preview looks correct: `npm run preview`
 
@@ -140,6 +154,7 @@ After deploying:
 - [ ] Verify deployment command completed successfully
 - [ ] Check gh-pages branch updated on GitHub
 - [ ] Visit live URL and test functionality
+- [ ] Print the live URL for reference
 - [ ] Test on multiple devices/browsers if major changes
 
 ## Performance Optimization
@@ -156,6 +171,11 @@ Large chunks can be optimized with dynamic imports or code splitting.
 ### Full Deployment
 ```bash
 npm run deploy
+```
+
+### Print Live URL
+```bash
+echo "https://jakeklineisreal.github.io/ae-bootcamp-capstone/"
 ```
 
 ### Check if Site is Live
