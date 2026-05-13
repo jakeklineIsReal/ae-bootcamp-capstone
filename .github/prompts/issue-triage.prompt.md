@@ -1,7 +1,7 @@
 ---
 name: issue-triage
 description: "Use when: routing a GitHub issue through the correct pipeline. Bugs get a reproduction E2E test. Features get speced out and added to the backlog."
-mode: agent
+agent: agent
 ---
 
 # Issue Triage Workflow

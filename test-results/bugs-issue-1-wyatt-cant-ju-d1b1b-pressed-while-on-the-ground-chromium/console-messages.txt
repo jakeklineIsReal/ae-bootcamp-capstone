@@ -1,0 +1,24 @@
+[log] %c %c %c %c %c Phaser v3.70.0 (WebGL | Web Audio) %c https://phaser.io background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent
+[log] Wyatt's Scooter Adventure - Game Initialized
+[log] Press F12 to open Developer Console for debug info
+[log] BootScene: preload
+[log] BootScene: create - transitioning to StartScene
+[log] StartScene: create
+[warning] The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio
+[warning] [.WebGL-0x75c00155a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[warning] [.WebGL-0x75c00155a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[warning] [.WebGL-0x75c00155a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+[warning] [.WebGL-0x75c00155a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+[log] GameScene: create
+[log] Camera setup, skipping fade for debug
+[log] GameScene: setupWorld
+[log] Background created at 2000 288 size: 4000 576
+[log] Ground created at 2000 480
+[log] GameScene: spawnPlayer
+[log] Player spawned at 100 380
+[log] GameScene: setupObstacles
+[log] Created 8 obstacles
+[log] GameScene: setupVolumeControls
+[log] Volume controls created
+[log] GameScene: create complete!
+[log] Jump!
